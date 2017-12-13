@@ -7,6 +7,6 @@ applications:
   host: backlog-pal-INITIALS
   path: Applications/BacklogServer/bin/Release/netcoreapp2.0/publish
   env:
-    REGISTRATION_SERVER_ENDPOINT: http://FILL_ME_IN/
+    REGISTRATION_SERVER_ENDPOINT: http://registration-pal-mk.apps.pikes.pal.pivotal.io/
   services:
   - tracker-backlog-database
