@@ -1,8 +1,10 @@
 ﻿using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Projects
 {
+    [Authorize(Policy="pal-dotnet")]
     public class ProjectController : Controller
     {
         private readonly IProjectDataGateway _gateway;

@@ -10,6 +10,11 @@ using Pivotal.Discovery.Client;
 using Steeltoe.Extensions.Configuration;
 using Steeltoe.CircuitBreaker.Hystrix;
 using Timesheets;
+using Steeltoe.Security.Authentication.CloudFoundry;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
+using AuthDisabler;
 
 namespace TimesheetsServer
 {
@@ -33,6 +38,7 @@ namespace TimesheetsServer
         {
             services.AddDiscoveryClient(Configuration);
             services.AddHystrixMetricsStream(Configuration);
+            services.AddCloudFoundryJwtAuthentication(Configuration);
             // Add framework services.
             services.AddMvc();
 
@@ -48,9 +54,20 @@ namespace TimesheetsServer
                     BaseAddress = new Uri(Configuration.GetValue<string>("REGISTRATION_SERVER_ENDPOINT"))
                 };
 
+                var contextAccessor = sp.GetService<IHttpContextAccessor>();
                 var logger = sp.GetService<ILogger<ProjectClient>>();
-                return new ProjectClient(httpClient, logger);
+                return new ProjectClient(httpClient, logger,
+                    () => contextAccessor.HttpContext.Authentication.GetTokenAsync("access_token")
+                );
             });
+
+            if(Configuration.GetValue("DISABLE_AUTH", false))
+            {
+                services.AddSingleton<IAuthorizationHandler>(sp => new AllowAllClaimsAuthorizationHandler());
+            }
+
+            services.AddAuthorization(options =>
+                options.AddPolicy("pal-dotnet", policy => policy.RequireClaim("scope", "uaa.resource")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

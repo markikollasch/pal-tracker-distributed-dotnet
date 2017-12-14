@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Users;
 
 namespace Accounts
 {
     [Route("registration"), Produces("application/json")]
+    [Authorize(Policy="pal-dotnet")]
     public class RegisationController : Controller
     {
         private readonly IRegistrationService _service;

@@ -17,6 +17,7 @@ function startServer() {
     export Logging__LogLevel__Default=Debug
     export REGISTRATION_SERVER_ENDPOINT=http://localhost:8883/
     export VCAP_SERVICES=${vcap_services}
+    export DISABLE_AUTH=true
     
     dotnet run --server.urls "http://*:${port}"
 }

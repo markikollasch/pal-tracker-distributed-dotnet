@@ -1,9 +1,11 @@
 ﻿using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Backlog
 {
     [Route("stories"), Produces("application/json")]
+    [Authorize(Policy="pal-dotnet")]
     public class StoryController : Controller
     {
         private readonly IStoryDataGateway _gateway;

@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Users
 {
     [Route("users"), Produces("application/json")]
+    [Authorize(Policy="pal-dotnet")]
     public class UserController : Controller
     {
         private readonly IUserDataGateway _gateway;

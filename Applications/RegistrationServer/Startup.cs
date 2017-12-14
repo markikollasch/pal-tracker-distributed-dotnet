@@ -9,6 +9,9 @@ using Pivotal.Discovery.Client;
 using Steeltoe.Extensions.Configuration;
 using Projects;
 using Users;
+using Steeltoe.Security.Authentication.CloudFoundry;
+using Microsoft.AspNetCore.Authorization;
+using AuthDisabler;
 
 namespace RegistrationServer
 {
@@ -31,6 +34,7 @@ namespace RegistrationServer
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDiscoveryClient(Configuration);
+            services.AddCloudFoundryJwtAuthentication(Configuration);
             // Add framework services.
             services.AddMvc();
 
@@ -40,6 +44,14 @@ namespace RegistrationServer
             services.AddSingleton<IProjectDataGateway, ProjectDataGateway>();
             services.AddSingleton<IUserDataGateway, UserDataGateway>();
             services.AddSingleton<IRegistrationService, RegistrationService>();
+
+            if(Configuration.GetValue("DISABLE_AUTH", false))
+            {
+                services.AddSingleton<IAuthorizationHandler>(sp => new AllowAllClaimsAuthorizationHandler());
+            }
+
+            services.AddAuthorization(options =>
+                options.AddPolicy("pal-dotnet", policy => policy.RequireClaim("scope", "uaa.resource")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

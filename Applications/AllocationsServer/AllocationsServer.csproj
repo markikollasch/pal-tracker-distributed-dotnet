@@ -11,6 +11,7 @@
     <ProjectReference Include="../../Components/Allocations/Allocations.csproj" />
     <ProjectReference Include="../../Components/DatabaseSupport/DatabaseSupport.csproj" />
     <ProjectReference Include="../../Components/DefaultRoute/DefaultRoute.csproj" />
+    <ProjectReference Include="../../Components/AuthDisabler/AuthDisabler.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -19,5 +20,6 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="1.1.2" />
     <PackageReference Include="Microsoft.Extensions.Configuration.CommandLine" Version="1.1.2" />
     <PackageReference Include="Pivotal.Discovery.Client" Version="1.1.0" />
+    <PackageReference Include="SteelToe.Security.Authentication.CloudFoundry" Version="1.1.0" />
   </ItemGroup>
 </Project>

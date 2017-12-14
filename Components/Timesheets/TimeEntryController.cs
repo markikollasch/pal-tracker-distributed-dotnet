@@ -1,9 +1,11 @@
 ﻿using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Timesheets
 {
     [Route("time-entries"), Produces("application/json")]
+    [Authorize(Policy="pal-dotnet")]
     public class TimeEntryController : Controller
     {
         private readonly ITimeEntryDataGateway _gateway;

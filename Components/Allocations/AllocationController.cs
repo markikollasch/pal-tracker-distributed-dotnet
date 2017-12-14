@@ -1,9 +1,11 @@
 ﻿using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Allocations
 {
     [Route("allocations"), Produces("application/json")]
+    [Authorize(Policy="pal-dotnet")]
     public class AllocationController : Controller
     {
         private readonly IAllocationDataGateway _gateway;
