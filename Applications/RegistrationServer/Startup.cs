@@ -60,6 +60,7 @@ namespace RegistrationServer
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
+            app.UseCloudFoundryJwtAuthentication();
             app.UseMvc();
             app.UseDiscoveryClient();
         }
