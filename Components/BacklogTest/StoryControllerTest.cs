@@ -49,7 +49,7 @@ namespace BacklogTest
 
             var controller =
                 new StoryController(new StoryDataGateway(new DatabaseTemplate(_dataSourceConfig)),
-                    new ProjectClient(_client));
+                    new ProjectClient(_client, new LoggerFactory().CreateLogger<ProjectClient>()));
             var result = controller.Get(55432);
 
             // todo...
