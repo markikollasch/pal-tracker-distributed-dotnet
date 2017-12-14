@@ -4,6 +4,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="RabbitMQ.Client" Version="5.0.1" />
+    <PackageReference Include="Steeltoe.CircuitBreaker.Hystrix" Version="1.1.0" />
+    <PackageReference Include="Steeltoe.CircuitBreaker.Hystrix.MetricsStream" Version="1.1.0" />
     <ProjectReference Include="../DatabaseSupport/DatabaseSupport.csproj" />
     <PackageReference Include="MySqlConnector" Version="0.19.3" />
   </ItemGroup>
