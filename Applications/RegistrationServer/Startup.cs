@@ -12,6 +12,7 @@ using Users;
 using Steeltoe.Security.Authentication.CloudFoundry;
 using Microsoft.AspNetCore.Authorization;
 using AuthDisabler;
+using Microsoft.AspNetCore.Http;
 
 namespace RegistrationServer
 {
@@ -45,6 +46,7 @@ namespace RegistrationServer
             services.AddSingleton<IUserDataGateway, UserDataGateway>();
             services.AddSingleton<IRegistrationService, RegistrationService>();
 
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             if(Configuration.GetValue("DISABLE_AUTH", false))
             {
                 services.AddSingleton<IAuthorizationHandler>(sp => new AllowAllClaimsAuthorizationHandler());
